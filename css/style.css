@@ -1,0 +1,131 @@
+body {
+    padding-top: 20px;
+    padding-bottom: 20px;
+	font-family: 'Raleway', sans-serif;
+	font-size: 16px;
+	/*font-family: 'Quattrocento', serif;*/
+    /*font-family: 'Open Sans', sans-serif;*/
+    -webkit-font-smoothing: antialiased;
+    border-top: 5px solid #F44336;
+}
+
+.navbar-default {
+    background-color: #fff;
+    border-color: #fff;
+    margin-top: 50px;
+    font-family: 'Quattrocento', Georgia, serif;
+    font-size: 22px;
+}
+
+.navbar-default .navbar-brand {
+	font-family: 'Raleway', sans-serif;
+	text-transform: uppercase;
+	font-weight: 700;
+	font-size: 26px;
+	color: #333;
+}
+
+.navbar-default .navbar-brand.red {
+	color: #fff;
+	background-color: #F44336;
+}
+
+
+.navbar>.container .navbar-brand.red, 
+.navbar>.container-fluid .navbar-brand.red {
+     margin-left: 0; 
+}
+
+.navbar-default .navbar-brand:hover.red,
+.navbar-default .navbar-brand:active.red {
+	color: #fff;
+	background-color: #F44336;
+	text-decoration: underline;
+}
+
+
+.navbar-default .navbar-nav>li>a {
+    color: #212121;
+}
+
+.navbar-default .navbar-nav>li>a:focus, 
+.navbar-default .navbar-nav>li>a:hover {
+	color: #B71C1C;
+	text-decoration: underline;
+    background-color: transparent;
+}
+
+#site-tagline {
+	margin: 0 0 100px 0;
+	/*border-top: 5px solid #F44336;*/
+}
+
+#site-tagline > h1 {
+	font-size: 60px;
+	font-weight: 400;
+}
+#site-tagline > h2 {
+	font-size: 48px;
+	font-weight: 400;
+}
+
+#projects-title {
+	margin: 10px 0 5px 0;
+	
+}
+
+#projects-title > span {
+	color: #fff;
+	background-color: #F44336;
+	font-weight: 700;
+	padding: 10px 15px 5px 15px;
+	text-transform: uppercase;
+}
+#red-border-top{
+	border-top: 5px solid #F44336;
+}
+
+.project {
+	position: relative;	
+}
+
+.project .description {
+	position: absolute;
+	top: 0;
+	width: calc(100% - 15px);
+	height: 100%;
+	padding: 20px;
+	display: none;
+	background-color: rgba(1,1,1,0.5);
+	color: white;
+}
+
+.project:nth-child(odd) .description {
+	/*left: 15px;*/
+}
+
+.project:nth-child(even) .description {
+ 	/*right: 15px;*/
+}
+
+
+.project:hover .description{
+	display: block;
+}
+
+.project .description h4{
+	font-size: 24px;
+}
+
+
+.project .description a{
+	color: #F44336;
+}
+
+.project:nth-child(odd) {
+	padding-right: 0; 
+}
+
+.project:nth-child(even) {
+	padding-left: 0; 
+}
