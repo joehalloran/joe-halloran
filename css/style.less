@@ -1,29 +1,116 @@
 @red: #F44336;
+@blue: #73A8CB;
+
 @main-font: 'Raleway', sans-serif;
-@decorator-font: 'Quattrocento', Georgia, serif;
 
-body {
-    padding-top: 20px;
-    padding-bottom: 20px;
-	font-family: @main-font;
-	font-size: 16px;
-    -webkit-font-smoothing: antialiased;
-    .red-border-top
+
+.color-border-top-mixin(@color) {
+	border-top: 5px solid @color;
 }
 
-.red-border-top {
-	border-top: 5px solid @red;
-}
-
-.red-title-box {
-	text-transform: uppercase;
+.color-box-mixin(@color) {
+	background-color: @color;
 	color: #fff;
-	background-color: @red;
+	text-transform: uppercase;
 	font-weight: 700;
 }
 
+.color-title-mixin(@color) {
+	display: inline-block;
+	margin: 0;
+	padding: 10px 15px 5px 15px;
+	.color-box-mixin(@color);
+}
+
+.page-setup-mixin(@main-color, @preloader-color) {
+	#pre-loader{
+		.color-border-top-mixin(@preloader-color);	
+	}
+
+	.color-title {
+		.color-title-mixin(@main-color);
+	}
+
+	.see-project-button {
+	 	.color-title-mixin(@main-color);
+	 	padding-bottom: 10px;
+	 	border-radius: 6px;
+	}
+
+	.border-top {
+		.color-border-top-mixin(@main-color);
+
+		p& {
+			padding-top: 20px;
+		}
+	}
+
+	.footer-border {
+		.footer-border-mixin(@main-color)	
+	}
+}
+
+
+.navbar-mixin(@title-color, @menu-item-color) {
+    
+    background-color: transparent;
+    border: none;
+    margin-top: 70px;
+    font-size: 22px;
+
+    .navbar-brand {
+    	font-family: @main-font;
+		font-size: 26px;
+		background-color: @title-color;
+		color: #fff;
+		text-transform: uppercase;
+		font-weight: 700;
+	}
+
+	.navbar-brand:hover,
+	.navbar-brand:active {
+		color: #fff;
+		background-color: @title-color;
+		text-decoration: underline;
+	}
+
+	.navbar-nav>li>a {
+	    color: @menu-item-color;
+	}
+
+	.navbar-nav>li>a:focus, 
+	.navbar-nav>li>a:hover {
+		color: @menu-item-color;
+		text-decoration: underline;
+	}
+
+	.navbar-toggle {
+	    border-color: @menu-item-color;
+	}
+
+	.navbar-toggle .icon-bar {
+	    background-color: @menu-item-color;
+	}
+
+}
+
+.footer-border-mixin(@color) {
+	border-top: 2px solid @color;
+	padding-top: 30px;
+}
+
 .btn-red {
-	.red-title-box;
+	.color-box-mixin(@red);
+
+	&:hover,
+	&:focus {
+		color: #EEE;
+	}
+
+}
+
+.btn-blue {
+	.color-box-mixin(@blue);
 
 	&:hover,
 	&:focus,
@@ -33,42 +120,69 @@ body {
 
 }
 
-.navbar-default {
-    background-color: #fff;
-    border-color: #fff;
-    margin-top: 50px;
-    font-family: @decorator-font;
-    font-size: 22px;
-
-    .navbar-brand {
-    	font-family: @main-font;
-		font-size: 26px;
-		.red-title-box;
-	}
-
-	.navbar-brand:hover,
-	.navbar-brand:active {
-		color: #fff;
-		background-color: @red;
-		text-decoration: underline;
-	}
-
-	.navbar-nav>li>a {
-	    color: #212121;
-	}
-
-	.navbar-nav>li>a:focus, 
-	.navbar-nav>li>a:hover {
-		color: #B71C1C;
-		text-decoration: underline;
-	    background-color: transparent;
-	}
+html,
+body {
+	height: 100%;
 }
 
+body {
+	font-family: @main-font;
+	font-size: 16px;
+    -webkit-font-smoothing: antialiased;   
+}
+
+#front-page {
+	.navbar-default{
+		.navbar-mixin(#F44336, #212121);
+	}
+
+	.page-setup-mixin(@red, @red);
+
+}
 
 .navbar>.container .navbar-brand, 
 .navbar>.container-fluid .navbar-brand {
      margin-left: 0; 
+}
+
+header {
+	position: relative;
+}
+
+.project-btn {
+    background-color: #FFDB41;
+    border-color: #FFDB41;
+    border-radius: 50px;
+    padding: 10px;
+    width: 50px;
+    height: 50px;
+    position: absolute;
+    margin-left: auto;
+    margin-right: auto;
+    bottom: 30px;
+    left: 0;
+    right: 0;
+
+    @media (min-width: 768px) {
+		bottom: 50px;
+	}
+
+    @media (min-width: 1170px) {
+		bottom: 70px;
+	}
+
+    &:hover {
+        box-shadow: 0 17px 50px 0 rgba(0,0,0,0.12),0 12px 15px 0 rgba(0,0,0,0.14);
+	    -webkit-transform: scale(1.1, 1.1);
+	    transform: scale(1.1, 1.1);
+    }
+
+    span {
+	    color: #000;
+	    font-size: 20px;
+	    font-weight: 100;
+	    margin: 3px 0 0 2px;
+    }
 }
 
 #site-tagline {
@@ -85,29 +199,100 @@ body {
 	}
 }
 
+#project-title {
+	margin-top: 60px;
+	margin-top: calc(~"50vh - 240px"); // dependent on size of navbar height + margin + title height
 
+	h1 {
+		font-size: 40px;
+		text-transform:uppercase;
+		font-weight: 700;
 
-#projects-title {
-	margin: 10px 0 5px 0;
-	
-	span {
-		padding: 10px 15px 5px 15px;
-		.red-title-box 
+		@media (min-width: 768px) {
+			font-size: 60px;
+		}
 	}
-	
+
+	h2 {
+		font-size: 30px;
+		font-weight: 400;
+
+		@media (min-width: 768px) {
+			font-size: 48px;
+		}
+	}
 }
 
+.project-main {
+	
+	section {
+		padding-top: 50px;
+		padding-bottom: 50px;
+	}
+
+    @media (min-width: 992px) {
+		section {
+			padding-top: 100px;
+			padding-bottom: 100px;
+		}
+	}
+
+	.client-quote {
+	 	padding-left: 0;
+	 	padding-right: 0;
+	 	border-left: none;
+	 }
+}
+
+.no-top-margin {
+	margin-top: 0;
+}
+
+.border-top {
+	p&,
+	ul&,
+	blockquote& {
+		padding-top: 20px;
+	}
+}
+
+
+.tech-icons {
+	padding-left: 40px;
+	i {
+		margin-right:5px;
+	}
+}
+
+.fa-html5 {
+	color: #e44d26;
+}
+
+.fa-css3 {
+	color: #2965f1;
+}
+
+.fa-wordpress {
+	color: #21759b;
+}
+
+#projects-row {
+	margin-bottom: 40px;
+}
 
 .project {
 
 	position: relative;
 
-	&:nth-child(odd) {
-		padding-right: 0; 
-	}
+	@media (min-width: 992px) {
+		&:nth-child(odd) {
+			padding-right: 0; 
+		}
 
-	&:nth-child(even) {
-		padding-left: 0; 
+		&:nth-child(even) {
+			padding-left: 0; 
+		}
+
 	}
 
 	&:hover {
@@ -119,7 +304,7 @@ body {
 	.description {
 		position: absolute;
 		top: 0;
-		width: calc(~"100% - 15px");
+		width: calc(~"100% - 30px");
 		height: 100%;
 		padding: 20px;
 		display: none;
@@ -133,41 +318,19 @@ body {
 		a{
 			color: @red;
 		}
+
+		@media (min-width: 992px) {
+			width: calc(~"100% - 15px");
+		}
 	}	
 }
 
-#about {
-
-	h3 {
-		margin: 40px 0 5px 0;
-
-		span {
-			padding: 10px 15px 5px 15px;
-			.red-title-box;
-		}
-	}
-
-	p {
-		.red-border-top;
-		padding-top: 20px;
-	}
+#about,
+#contact {
+	margin-bottom: 40px;
 }
 
 #contact {
-
-	h3 {
-		margin: 40px 0 5px 0;
-		
-		span {
-			padding: 10px 15px 5px 15px;
-			.red-title-box 
-		}
-	}
-
-	p {
-		.red-border-top;
-		padding-top: 20px;
-	}
 
 	form {
 
@@ -217,12 +380,6 @@ body {
 
 #page-footer {
 	margin: 10px 0;
-	
-	
-	.border {
-		border-top: 2px solid @red;
-		padding: 30px 15px;
-	}
 
 	.social-logos {
 
@@ -260,4 +417,292 @@ body {
 			}
 		}
 	}
+
+	#copyright-text {
+		font-size: 14px;
+	}
+}
+
+/* ---- PROJECTS ---- */
+
+#all-projects {
+	.navbar-default{
+		.navbar-mixin(transparent, #fff);
+	}
+
+	.page-setup-mixin(#418ED4, darken(#fff, 10%));
+
+	background-color: #545454;
+
+	#page-title {
+		color: darken(#fff, 10%);
+		font-size: 60px;
+		text-transform: uppercase;
+		font-weight: 700;
+		margin: 40px 0;
+	}
+
+	article {
+		@media (min-width: 768px) {
+			margin: 20px 0;
+		}
+		margin: 40px 0;
+
+		a {
+			color: darken(#fff, 25%);
+
+			&:hover {
+				color: darken(#fff, 40%);
+			}
+		}
+	}
+
+	#page-footer {
+		margin-top: 40px;
+
+		.footer-border {
+			border-top: 2px solid darken(#fff, 10%);
+		}
+	}
+
+}
+
+#africa-porgramme-project {
+	.navbar-default{
+		.navbar-mixin(transparent, #fff);
+	}
+
+	.page-setup-mixin(@blue, orange);
+
+	header {
+		background-color: @blue;
+		height: 100%;
+		color: darken(@blue, 25%);
+
+		h2 {
+			color: darken(@blue, 20%);
+		}
+	}
+
+
+	.project-btn {
+		background-color: orange;
+	    border-color: orange;
+	}
+
+	section.highlight {
+		background-color: @blue;
+		color: #fff;
+	}
+
+}
+
+#rosendale-bookclub {
+	.navbar-default{
+		.navbar-mixin(transparent, #fff);
+	}
+
+	.page-setup-mixin(#F4A036, #F44336);
+
+	header {
+		background-color: #F4A036;
+		height: 100%;
+		color: darken(#F4A036, 25%);
+
+		h2 {
+			color: darken(#F4A036, 20%);
+		}
+	}
+
+
+	.project-btn {
+		background-color: #F44336;
+	    border-color: #F44336;
+	}
+
+	section.highlight {
+		background-color: #F4A036;
+		color: #fff;
+	}
+
+}
+
+#reflected-project {
+	.navbar-default{
+		.navbar-mixin(transparent, #fff);
+	}
+
+	.page-setup-mixin(#333D58, #668D83);
+
+	header {
+		background-color: #333D58;
+		height: 100%;
+		color: lighten(#333D58, 25%);
+
+		h2 {
+			color: lighten(#333D58, 20%);
+		}
+	}
+
+
+	.project-btn {
+		background-color: #668D83;
+	    border-color: #668D83;
+	}
+
+	section.highlight {
+		background-color: #333D58	;
+		color: #fff;
+	}
+
+}
+
+#needle-therapy-project {
+	.navbar-default{
+		.navbar-mixin(transparent, #fff);
+	}
+
+	.page-setup-mixin(#83D3C9, #F397B1);
+
+	header {
+		background-color: #83D3C9;
+		height: 100%;
+		color: darken(#83D3C9, 40%);
+
+		h2 {
+			color: darken(#83D3C9, 30%);
+		}
+	}
+
+
+	.project-btn {
+		background-color: #F397B1;
+	    border-color: #F397B1;
+	}
+
+	section.highlight {
+		background-color: #83D3C9;
+		color: #fff;
+	}
+
+}
+
+#london-clc-project {
+	.navbar-default{
+		.navbar-mixin(transparent, #fff);
+	}
+
+	.page-setup-mixin(#1B1D1C, #A29D95);
+
+	header {
+		background-color: #1B1D1C;
+		height: 100%;
+		color: lighten(#1B1D1C, 40%);
+
+		h2 {
+			color: lighten(#1B1D1C, 30%);
+		}
+	}
+
+
+	.project-btn {
+		background-color: #A29D95;
+	    border-color: #A29D95;
+	}
+
+	section.highlight {
+		background-color: #1B1D1C;
+		color: #fff;
+	}
+
+}
+
+#fact-of-the-week {
+	.navbar-default{
+		.navbar-mixin(transparent, #fff);
+	}
+
+	.page-setup-mixin(#EF3E4A, #2C7E99);
+
+	header {
+		background-color: #EF3E4A;
+		height: 100%;
+		color: darken(#EF3E4A, 25%);
+
+		h2 {
+			color: darken(#EF3E4A, 20%);
+		}
+	}
+
+
+	.project-btn {
+		background-color: #2C7E99;
+	    border-color: #2C7E99;
+	}
+
+	section.highlight {
+		background-color: #EF3E4A;
+		color: #fff;
+	}
+
+}
+
+#english-in-focus {
+	.navbar-default{
+		.navbar-mixin(transparent, #fff);
+	}
+
+	.page-setup-mixin(#346B82, #CEB14D);
+
+	header {
+		background-color: #346B82;
+		height: 100%;
+		color: darken(#346B82, 25%);
+
+		h2 {
+			color: darken(#346B82, 20%);
+		}
+	}
+
+
+	.project-btn {
+		background-color: #CEB14D;
+	    border-color: #CEB14D;
+	}
+
+	section.highlight {
+		background-color: #346B82;
+		color: #fff;
+	}
+
+}
+
+#connecting-knowledge {
+	.navbar-default{
+		.navbar-mixin(transparent, #fff);
+	}
+
+	.page-setup-mixin(#418ED4, #FFDB41);
+
+	header {
+		background-color: #418ED4;
+		height: 100%;
+		color: darken(#418ED4, 25%);
+
+		h2 {
+			color: darken(#418ED4, 20%);
+		}
+	}
+
+
+	.project-btn {
+		background-color: #FFDB41;
+	    border-color: #FFDB41;
+	}
+
+	section.highlight {
+		background-color: #418ED4;
+		color: #fff;
+	}
+
 }
